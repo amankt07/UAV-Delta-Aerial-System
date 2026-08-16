@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const stages = [
   "CONCEPT",
@@ -115,43 +116,38 @@ export default function Process() {
               SYS.ACTIVE
             </motion.div>
 
-            {/* Abstract UAV Assembly Visualization based on scroll */}
-            <div className="relative w-full h-full flex items-center justify-center">
-               {/* 01 Concept: Blueprint Grid */}
+            {/* UAV Process Images Visualization based on scroll */}
+            <div className="relative w-full h-full flex items-center justify-center p-2">
+               {/* 01 Concept (0 - 0.25) */}
                <motion.div 
-                 className="absolute inset-0 border border-dashed border-white/20"
-                 style={{ opacity: useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 1, 0]) }}
-               />
-               
-               {/* 02 Aero: Airflow lines */}
-               <motion.div 
-                 className="absolute inset-0 flex flex-col justify-center gap-4 px-12"
-                 style={{ opacity: useTransform(scrollYProgress, [0.1, 0.2, 0.3], [0, 1, 0]) }}
+                 className="absolute inset-0 m-4 border border-white/10 overflow-hidden"
+                 style={{ opacity: useTransform(scrollYProgress, [0, 0.25, 0.28], [1, 1, 0]) }}
                >
-                 {[1,2,3,4,5].map(i => (
-                   <div key={i} className="h-[1px] w-full bg-gradient-to-r from-transparent via-aerospace-cyan to-transparent animate-pulse" style={{ animationDelay: `${i * 0.2}s`}} />
-                 ))}
+                 <Image src="/process/blueprint.jpg" alt="Blueprint Concept" fill className="object-cover opacity-80 mix-blend-screen" />
                </motion.div>
                
-               {/* 03-05: Structural Build */}
+               {/* 02 Aerodynamics & Structures (0.25 - 0.5) */}
                <motion.div 
-                 className="absolute w-1/2 h-1/4 border-2 border-white/50"
-                 style={{ 
-                   opacity: useTransform(scrollYProgress, [0.2, 0.4, 0.6], [0, 1, 0]),
-                   rotateX: useTransform(scrollYProgress, [0.2, 0.6], [0, 180])
-                 }}
-               />
-               
-               {/* 06-08: Final UAV form (abstract) */}
-               <motion.div 
-                 className="absolute w-3/4 h-1/2 border border-aerospace-cyan flex items-center justify-center"
-                 style={{ 
-                   opacity: useTransform(scrollYProgress, [0.6, 0.8, 1], [0, 1, 1]),
-                   scale: useTransform(scrollYProgress, [0.6, 1], [0.8, 1])
-                 }}
+                 className="absolute inset-0 m-4 border border-white/10 overflow-hidden"
+                 style={{ opacity: useTransform(scrollYProgress, [0.22, 0.25, 0.5, 0.53], [0, 1, 1, 0]) }}
                >
-                 <div className="w-1/2 h-[1px] bg-white shadow-[0_0_15px_#fff]"></div>
-                 <div className="absolute w-[1px] h-3/4 bg-white shadow-[0_0_15px_#fff]"></div>
+                 <Image src="/process/aerodynamics.jpg" alt="Aerodynamics Simulation" fill className="object-cover opacity-80 mix-blend-screen" />
+               </motion.div>
+               
+               {/* 03 Manufacturing & Integration (0.5 - 0.75) */}
+               <motion.div 
+                 className="absolute inset-0 m-4 border border-white/10 overflow-hidden"
+                 style={{ opacity: useTransform(scrollYProgress, [0.47, 0.5, 0.75, 0.78], [0, 1, 1, 0]) }}
+               >
+                 <Image src="/process/manufacturing.jpg" alt="Drone Manufacturing" fill className="object-cover opacity-80 mix-blend-screen" />
+               </motion.div>
+               
+               {/* 04 Flight Test & Production (0.75 - 1.0) */}
+               <motion.div 
+                 className="absolute inset-0 m-4 border border-white/10 overflow-hidden"
+                 style={{ opacity: useTransform(scrollYProgress, [0.72, 0.75, 1], [0, 1, 1]) }}
+               >
+                 <Image src="/process/flight.jpg" alt="Flight Test" fill className="object-cover opacity-80 mix-blend-screen" />
                </motion.div>
             </div>
           </div>

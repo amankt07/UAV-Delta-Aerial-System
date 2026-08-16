@@ -102,6 +102,7 @@ export default function Contact() {
                     <div className="space-y-2">
                       <label htmlFor="name" className="font-mono text-[10px] text-aerospace-cyan tracking-widest uppercase">Name *</label>
                       <input 
+                        suppressHydrationWarning
                         required
                         type="text" 
                         id="name" 
@@ -114,6 +115,7 @@ export default function Contact() {
                     <div className="space-y-2">
                       <label htmlFor="company" className="font-mono text-[10px] text-aerospace-cyan tracking-widest uppercase">Company *</label>
                       <input 
+                        suppressHydrationWarning
                         required
                         type="text" 
                         id="company" 
@@ -128,6 +130,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label htmlFor="email" className="font-mono text-[10px] text-aerospace-cyan tracking-widest uppercase">Email *</label>
                     <input 
+                      suppressHydrationWarning
                       required
                       type="email" 
                       id="email" 
@@ -141,6 +144,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label htmlFor="requirement" className="font-mono text-[10px] text-aerospace-cyan tracking-widest uppercase">Programme Type</label>
                     <select 
+                      suppressHydrationWarning
                       id="requirement" 
                       name="requirement"
                       value={formState.requirement}
@@ -158,6 +162,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label htmlFor="message" className="font-mono text-[10px] text-aerospace-cyan tracking-widest uppercase">Programme Details *</label>
                     <textarea 
+                      suppressHydrationWarning
                       required
                       id="message" 
                       name="message"
@@ -170,6 +175,7 @@ export default function Contact() {
                   </div>
 
                   <button 
+                    suppressHydrationWarning
                     type="submit" 
                     disabled={status === "submitting"}
                     className="w-full group relative inline-flex items-center justify-center px-8 py-4 bg-white text-aerospace-black font-bold tracking-wider overflow-hidden transition-all disabled:opacity-70"
