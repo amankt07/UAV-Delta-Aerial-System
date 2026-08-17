@@ -1,88 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
 import { motion } from "framer-motion";
+import UavModel from "../three/UavModel";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     setMounted(true);
-    
-    const frameCount = 300;
-    const images: HTMLImageElement[] = [];
-    
-    // Preload images
-    for (let i = 1; i <= frameCount; i++) {
-      const img = new Image();
-      const frameNum = i.toString().padStart(3, '0');
-      img.src = `/drone-frames/ezgif-frame-${frameNum}.jpg`;
-      images.push(img);
-    }
-    
-    let frameIndex = 0;
-    let animationFrameId: number;
-    let lastTime = 0;
-    const fps = 30;
-    const interval = 1000 / fps;
-    
-    const render = () => {
-      if (images.length > 0 && canvasRef.current) {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        const img = images[frameIndex];
-        
-        if (ctx && img.complete) {
-          const hRatio = canvas.width / img.width;
-          const vRatio = canvas.height / img.height;
-          const ratio = Math.max(hRatio, vRatio);
-          const centerShift_x = (canvas.width - img.width * ratio) / 2;
-          const centerShift_y = (canvas.height - img.height * ratio) / 2;
-          
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, img.width, img.height,
-            centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
-        }
-        
-        frameIndex = (frameIndex + 1) % frameCount;
-      }
-    };
-    
-    const loop = (time: number) => {
-      animationFrameId = requestAnimationFrame(loop);
-      if (time - lastTime >= interval) {
-        lastTime = time;
-        render();
-      }
-    };
-    
-    animationFrameId = requestAnimationFrame(loop);
-    
-    const handleResize = () => {
-      if (canvasRef.current) {
-        canvasRef.current.width = window.innerWidth;
-        canvasRef.current.height = window.innerHeight;
-        render(); // render immediately on resize
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
-    handleResize(); // set initial size
-    
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-aerospace-black flex items-center justify-center">
-      {/* Canvas Background for Drone Frames */}
-      <div className="absolute inset-0 z-0 opacity-60">
-        <canvas ref={canvasRef} className="w-full h-full object-cover" />
-        {/* Fallback color overlay if needed to make text readable */}
-        <div className="absolute inset-0 bg-aerospace-black/40 mix-blend-multiply"></div>
+      {/* 3D Canvas Background */}
+      <div className="absolute inset-0 z-0 opacity-80">
+        {mounted && (
+          <Canvas camera={{ position: [0, 2, 8], fov: 45 }}>
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} intensity={1} color="#00E5FF" />
+            <UavModel />
+            <Environment preset="city" />
+          </Canvas>
+        )}
       </div>
 
       {/* Grid Overlay */}
