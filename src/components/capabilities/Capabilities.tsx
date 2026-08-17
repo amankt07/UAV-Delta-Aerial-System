@@ -75,7 +75,7 @@ export default function Capabilities() {
           </motion.div>
         </div>
 
-        <div className="relative max-w-5xl mx-auto h-[600px] md:h-[700px] flex items-center justify-center">
+        <div className="relative max-w-5xl mx-auto h-[600px] md:h-[700px] hidden md:flex items-center justify-center">
           {/* Central Platform Element */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
             <div className="relative w-32 h-32 md:w-48 md:h-48 border border-white/20 rounded-full flex items-center justify-center bg-aerospace-black shadow-[0_0_50px_rgba(0,229,255,0.1)]">
@@ -85,7 +85,7 @@ export default function Capabilities() {
             </div>
           </div>
 
-          {/* Capability Nodes */}
+          {/* Capability Nodes (Desktop) */}
           {capabilities.map((cap) => (
             <div 
               key={cap.id}
@@ -134,6 +134,27 @@ export default function Capabilities() {
                 </div>
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* Mobile Layout */}
+        <div className="md:hidden flex flex-col gap-6">
+          {capabilities.map((cap, idx) => (
+            <motion.div 
+              key={cap.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="p-5 border border-white/10 bg-aerospace-black/50"
+            >
+              <h3 className="font-mono text-sm font-bold tracking-widest mb-2 text-aerospace-cyan">
+                {cap.title}
+              </h3>
+              <p className="text-sm text-aerospace-offwhite/70 leading-relaxed">
+                {cap.description}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>
